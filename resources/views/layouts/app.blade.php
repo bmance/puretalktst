@@ -27,7 +27,4 @@
             @yield('content')
         </div>
     </body>
-    <footer>
-        <div class="container">Powered By Laravel; Author: Brad Mance</div>
-    </footer>
 </html>

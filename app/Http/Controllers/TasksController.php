@@ -2,13 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
+
 use Illuminate\Http\Request;
 
 class TasksController extends Controller
 {
    //HOMEPAGE ROUTE
    public function index() {
-    return view('tasks.index');
+
+    //RETRIEVE ALL TASKS WHEN ON FRONT PAGE
+    $tasks = Task::orderBy('id', 'DESC')->get(); //RETRIEVES ALL TASKS IN DESC ORDER
+
+    //PASS DATA TO INDEX VIEW\
+    return view('tasks.index', [
+        'tasks' => $tasks,
+    ]);
    }
 
    //CREATE A NEW TASK
@@ -18,7 +27,18 @@ class TasksController extends Controller
 
    //TASK DATA SUBMISSION
    public function store() {
-     return request()->all(); //GET ALL SUBMITTED DATA
+
+     $allData = request()->all(); //ALL JSON DATA FROM FORM
+     
+     $task = Task::create([
+        'description' => request('description'),
+     ]); 
+
+     //RETURNING TO FRONT PAGE WHEN TASK IS CREATED
+     return redirect('/');
+
+
+
    }
 
     //1. New Homepage - Done
@@ -28,5 +48,7 @@ class TasksController extends Controller
     //4. Mark a task as completed
     //5. Categorize tasks in two areas: complete and uncompleted
     //6. Remove a task permanently
+
+   //return dd(); //DIE DUMP THE DATA
 
 }
