@@ -17,7 +17,7 @@ class TasksController extends Controller
         ->orderBy('created_at', 'DESC')//SORT BY DATE
         ->get(); //RETRIEVES ALL TASKS IN DESC ORDER FROM SORTED LIST
 
-    //PASS DATA TO INDEX VIEW\
+    //PASS DATA TO INDEX VIEW
     return view('tasks.index', [
         'tasks' => $tasks,
     ]);
@@ -46,12 +46,10 @@ class TasksController extends Controller
      //RETURNING TO FRONT PAGE WHEN TASK IS CREATED
      return redirect('/');
 
-
-
    }
 
-    //4. Mark a task as completed
-    public function update($id) {
+    //MARK A TASK AS COMPLETE
+    public function modify($id) {
         $task = Task::where('id', $id)->first();
 
         $task->completed_at = now();
@@ -60,8 +58,7 @@ class TasksController extends Controller
         return redirect('/');
     }
 
-    //6. Delete a task
-
+    //DELETE A TASK
     public function delete($id) {
         $task = Task::where('id', $id)->first(); //retrieve task model
 
@@ -70,6 +67,18 @@ class TasksController extends Controller
         return redirect('/');
     }
 
-   //return dd(); //DIE DUMP THE DATA
+    //EDIT A TASK
+    public function edit($id) {
+        $task = Task::find($id);
+        return view('tasks.edit', compact('task')); //RETURNS TO EDIT TEMPLATE WITH TASK MODEL TO PASS DATA
+    }
+
+    //UPDATE A TASK INFORMATION
+    public function update(Request $request, $id) {
+        $task = Task::find($id);
+        $task->description = $request->input('description');
+        $task->update();
+        return redirect('/');
+    }
 
 }
