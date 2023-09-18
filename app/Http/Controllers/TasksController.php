@@ -53,9 +53,15 @@ class TasksController extends Controller
         return redirect('/');
     }
 
+    //6. Delete a task
 
-    //5. Categorize tasks in two areas: complete and uncompleted
-    //6. Remove a task permanently
+    public function delete($id) {
+        $task = Task::where('id', $id)->first(); //retrieve task model
+
+        $task->delete();
+
+        return redirect('/');
+    }
 
    //return dd(); //DIE DUMP THE DATA
 

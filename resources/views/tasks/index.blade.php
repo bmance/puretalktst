@@ -3,7 +3,6 @@
 @section('main')
     <h1>Task List</h1>
 
-    //RENDER ALL TASKS AVAILABLE
     @foreach ($tasks as $task)
         <div class="task-item card @if($task->isComplete()) success @endif">
             <div class="inner-task card-body">
@@ -25,6 +24,18 @@
                         <button type="submit" class="btn btn-primary">Complete</button>
 
                     </form>
+
+                @else
+
+                <form action="/tasks/{{ $task->id }}" method="POST">
+
+                    @method('DELETE')
+                    @csrf
+
+                    <button type="submit" class="btn btn-primary btn-danger" style="background-color:red;">Delete</button>
+
+                </form>
+
                 @endif
 
             </div>    

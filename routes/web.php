@@ -15,5 +15,8 @@ Route::get('/tasks/create', [TasksController::class,'create'])->name('tasks.crea
 //FORM SUBMISSION
 Route::post('/tasks', [TasksController::class,'store'])->name('tasks');
 
-//FORM SUBMISSION
+//UPDATE TASK INFO
 Route::patch('/tasks/{id}', [TasksController::class,'update'])->name('tasks');
+
+//DELETE COMPLETED TASK
+Route::delete('/tasks/{id}', [TasksController::class,'delete'])->name('tasks');
