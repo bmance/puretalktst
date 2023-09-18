@@ -12,8 +12,8 @@ Route::get('/tasks', [TasksController::class,'index'])->name('tasks.index');
 //CREATE A TASK
 Route::get('/tasks/create', [TasksController::class,'create'])->name('tasks.create');
 
-//
-//Route::get('/tasks', [TasksController::class,'store'])->name('tasks.create');
-
-//FORM SUBMISSION TEST
+//FORM SUBMISSION
 Route::post('/tasks', [TasksController::class,'store'])->name('tasks');
+
+//FORM SUBMISSION
+Route::patch('/tasks/{id}', [TasksController::class,'update'])->name('tasks');

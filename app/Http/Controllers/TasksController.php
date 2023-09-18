@@ -12,7 +12,9 @@ class TasksController extends Controller
    public function index() {
 
     //RETRIEVE ALL TASKS WHEN ON FRONT PAGE
-    $tasks = Task::orderBy('id', 'DESC')->get(); //RETRIEVES ALL TASKS IN DESC ORDER
+    $tasks = Task::orderBy('completed_at') //PLACES COMPLETED TASKS UPFRONT
+        ->orderBy('id', 'DESC')//SORTS BY TASK ITEM ID ON TABLE
+        ->get(); //RETRIEVES ALL TASKS IN DESC ORDER FROM SORTED LIST
 
     //PASS DATA TO INDEX VIEW\
     return view('tasks.index', [
@@ -41,11 +43,17 @@ class TasksController extends Controller
 
    }
 
-    //1. New Homepage - Done
-    //1a. Handle task submission data
-    //2. Create a task
-    //3. Display a task
     //4. Mark a task as completed
+    public function update($id) {
+        $task = Task::where('id', $id)->first();
+
+        $task->completed_at = now();
+        $task->save();
+
+        return redirect('/');
+    }
+
+
     //5. Categorize tasks in two areas: complete and uncompleted
     //6. Remove a task permanently
 
