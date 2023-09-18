@@ -14,6 +14,7 @@ class TasksController extends Controller
     //RETRIEVE ALL TASKS WHEN ON FRONT PAGE
     $tasks = Task::orderBy('completed_at') //PLACES COMPLETED TASKS UPFRONT
         ->orderBy('id', 'DESC')//SORTS BY TASK ITEM ID ON TABLE
+        ->orderBy('created_at', 'DESC')//SORT BY DATE
         ->get(); //RETRIEVES ALL TASKS IN DESC ORDER FROM SORTED LIST
 
     //PASS DATA TO INDEX VIEW\
@@ -31,6 +32,12 @@ class TasksController extends Controller
    public function store() {
 
      $allData = request()->all(); //ALL JSON DATA FROM FORM
+
+     //FORM VALIDATION RULES
+     request()->validate([
+        'description' => 'required|max:200', //REQUIRED FIELD AND MAX CHAR LENGTH
+
+     ]);
      
      $task = Task::create([
         'description' => request('description'),
