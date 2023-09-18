@@ -77,7 +77,14 @@ class TasksController extends Controller
     public function update(Request $request, $id) {
         $task = Task::find($id);
         $task->description = $request->input('description');
-        $task->update();
+        
+        //FORM VALIDATION RULES
+        request()->validate([
+            'description' => 'required|max:200', //REQUIRED FIELD AND MAX CHAR LENGTH
+
+        ]);
+
+        $task->update();//UPDATE DATA
         return redirect('/');
     }
 
